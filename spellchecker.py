@@ -10,16 +10,36 @@ class SpellChecker:
 
     def handleSentence(self, txtIn, language):
         risultato=[]
+        multi =md.MultiDictionary()
         lista=txtIn.split()
         for e in lista:
             self.replaceChars(e)
-
+        print("RICERCA NORMALE")
         for i in lista:
-            md.searchWord
-
-        return risultato
-
-
+            risultato.append(multi.searchWord(i,language))
+            check=multi.searchWord(i,language)
+            if check.corretta:
+                print(i)
+            else:
+                print(f"{i} (NOT FOUND)")
+        print("="*60)
+        print("RICERCA LINEARE")
+        for i in lista:
+            risultato.append(multi.searchWordLinear(i,language))
+            check = multi.searchWordLinear(i, language)
+            if check.corretta:
+                print(i)
+            else:
+                print(f"{i} (NOT FOUND)")
+        print("=" * 60)
+        print("RICERCA DICOTOMICA")
+        for i in lista:
+            risultato.append(multi.searchWordDicotomic(i, language))
+            check = multi.searchWordDicotomic(i, language)
+            if check.corretta:
+                print(i)
+            else:
+                print(f"{i} (NOT FOUND)")
 
     def printMenu(self):
         print("______________________________\n" +

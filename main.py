@@ -12,6 +12,7 @@ while(True):
         print("Inserisci la tua frase in Italiano\n")
         txtIn = input()
         sc.handleSentence(txtIn,"italian")
+
         continue
 
     if int(txtIn) == 2:
