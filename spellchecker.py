@@ -10,36 +10,52 @@ class SpellChecker:
 
     def handleSentence(self, txtIn, language):
         risultato=[]
+        clean=[]
         multi =md.MultiDictionary()
         lista=txtIn.split()
         for e in lista:
-            self.replaceChars(e)
+            clean.append(self.replaceChars(e))
         print("RICERCA NORMALE")
-        for i in lista:
+        tic=time.time()
+        for i in clean:
+            self.replaceChars(i)
             risultato.append(multi.searchWord(i,language))
             check=multi.searchWord(i,language)
             if check.corretta:
                 print(i)
+                toc=time.time()
             else:
                 print(f"{i} (NOT FOUND)")
+                toc=time.time()
+        print(f"tempo per effettuare la ricerca normale: {toc - tic}")
+
         print("="*60)
         print("RICERCA LINEARE")
-        for i in lista:
+        tic=time.time()
+        for i in clean:
             risultato.append(multi.searchWordLinear(i,language))
             check = multi.searchWordLinear(i, language)
             if check.corretta:
                 print(i)
+                toc=time.time()
             else:
                 print(f"{i} (NOT FOUND)")
+                toc=time.time()
+        print(f"tempo per effettuare la ricerca lineare: {toc - tic}")
+
         print("=" * 60)
         print("RICERCA DICOTOMICA")
-        for i in lista:
+        tic=time.time()
+        for i in clean:
             risultato.append(multi.searchWordDicotomic(i, language))
             check = multi.searchWordDicotomic(i, language)
             if check.corretta:
                 print(i)
+                toc=time.time()
             else:
                 print(f"{i} (NOT FOUND)")
+                toc=time.time()
+        print(f"tempo per effettuare la ricerca dicotomica: {toc - tic}")
 
     def printMenu(self):
         print("______________________________\n" +
